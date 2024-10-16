@@ -1,0 +1,15 @@
+.sidebar-nav {
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+.button-style{
+  input[type=submit]{
+    background-color:#04AA6D;
+    border:none;
+    color:white;
+    text-decoration:none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+}

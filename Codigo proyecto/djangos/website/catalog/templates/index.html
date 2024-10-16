@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Video portero</h1>
+  <p>
+    Pulsar botón para abrir la puerta
+    {% block button %}
+    <form method="POST" id="post-form">
+      {% csrf_token %}
+      <input type="submit" value="Abrir puerta"></button>
+    </form>
+    {% endblock %}
+    <script>
+      $(document).ready(function(){
+          $('#post-form').on('submit',function(event){
+              event.preventDefault();
+              $.ajax({
+                  url: "{% url 'apertura' %}",
+                  type:"POST",
+                  data:{
+                      csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  },
+                  success:function(){
+                  },
+              });            
+          });
+      });
+    </script>
+  </p>
+  <h2>Cámara</h2>
+  <div>
+    <img src="{% url 'live_camera' %}">
+  </div>
+  <h2>Tabla acceso</h2>
+  <table class="table-stripped">
+    <thread>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Éxito</th>
+      </tr>
+    </thread>
+    <tbody>
+    {% for datalist in datalist %}
+      <tr>
+        <th scope="row">{{ doorrelease.id }}</th>
+        <td>{{ datalist.userid }}</td>
+        <td>{{ datalist.recdate }}</td>
+        <td>{{ datalist.success }}</td>
+      </tr>
+    {% endfor %}    
+    </tbody>
+  </table>
+{% endblock %}
